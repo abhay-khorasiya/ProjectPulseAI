@@ -1,3 +1,5 @@
+import os
+
 from fastapi import (
     Depends,
     FastAPI,
@@ -21,18 +23,10 @@ from schemas import (
 )
 
 
-# ---------------------------------------------------------
-# Database Setup
-# ---------------------------------------------------------
-
 models.Base.metadata.create_all(
     bind=engine
 )
 
-
-# ---------------------------------------------------------
-# FastAPI Application
-# ---------------------------------------------------------
 
 app = FastAPI(
     title="ProjectPulse AI API",
@@ -44,34 +38,36 @@ app = FastAPI(
 )
 
 
-# ---------------------------------------------------------
-# CORS
-# ---------------------------------------------------------
+cors_env = os.getenv(
+    "CORS_ORIGINS",
+    "http://localhost:5173,http://127.0.0.1:5173"
+)
+
+if cors_env.strip() == "*":
+    allowed_origins = ["*"]
+    allow_credentials = False
+else:
+    allowed_origins = [
+        origin.strip()
+        for origin in cors_env.split(",")
+        if origin.strip()
+    ]
+    allow_credentials = True
+
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173"
-    ],
-    allow_credentials=True,
+    allow_origins=allowed_origins,
+    allow_credentials=allow_credentials,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 
-# ---------------------------------------------------------
-# Modular API Routes
-# ---------------------------------------------------------
-
 app.include_router(
     api_router
 )
 
-
-# ---------------------------------------------------------
-# Home
-# ---------------------------------------------------------
 
 @app.get("/")
 def home():
@@ -81,10 +77,6 @@ def home():
     }
 
 
-# ---------------------------------------------------------
-# Health Check
-# ---------------------------------------------------------
-
 @app.get("/api/health")
 def health_check():
     return {
@@ -93,10 +85,6 @@ def health_check():
         "challenge": "AS-02"
     }
 
-
-# ---------------------------------------------------------
-# Analyze Only
-# ---------------------------------------------------------
 
 @app.post(
     "/api/analyze",
@@ -119,10 +107,6 @@ def analyze_project_conversation(
     }
 
 
-# ---------------------------------------------------------
-# Save Conversation Only
-# ---------------------------------------------------------
-
 @app.post(
     "/api/conversations",
     response_model=ConversationResponse
@@ -143,10 +127,6 @@ def create_conversation(
     return new_conversation
 
 
-# ---------------------------------------------------------
-# Get Conversations
-# ---------------------------------------------------------
-
 @app.get(
     "/api/conversations",
     response_model=list[ConversationResponse]
@@ -164,10 +144,6 @@ def get_conversations(
 
     return conversations
 
-
-# ---------------------------------------------------------
-# Search Raw Conversations
-# ---------------------------------------------------------
 
 @app.get(
     "/api/conversations/search",
@@ -197,10 +173,6 @@ def search_conversations(
 
     return conversations
 
-
-# ---------------------------------------------------------
-# Single Conversation
-# ---------------------------------------------------------
 
 @app.get(
     "/api/conversations/{conversation_id}",
