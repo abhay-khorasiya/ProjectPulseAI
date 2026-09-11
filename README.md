@@ -10,6 +10,22 @@ ProjectPulse converts unstructured project communication into structured, search
 
 ---
 
+## Live Deployment
+
+**Frontend Application**
+
+https://project-pulse-ai-iota.vercel.app
+
+**Backend API**
+
+https://projectpulseai.onrender.com
+
+**Interactive API Documentation**
+
+https://projectpulseai.onrender.com/docs
+
+> Note: The backend is hosted on Render's free tier. After a period of inactivity, the first request may take a little longer while the service wakes up.
+
 ## Problem
 
 Modern projects generate large amounts of communication between:
