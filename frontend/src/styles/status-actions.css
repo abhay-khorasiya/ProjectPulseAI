@@ -1,0 +1,70 @@
+.status-action-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+
+  margin-top: 9px;
+}
+
+.status-action-button {
+  border: 1px solid #d7d3ff;
+  border-radius: 7px;
+
+  padding: 6px 10px;
+
+  color: #5d50cd;
+  background: #f4f2ff;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  transition: 0.2s ease;
+}
+
+.status-action-button:hover {
+  border-color: #c8c2ff;
+
+  background: #eae7ff;
+}
+
+.status-action-button:disabled {
+  cursor: not-allowed;
+
+  opacity: 0.6;
+}
+
+.resolved-label {
+  display: inline-block;
+
+  margin-top: 8px;
+
+  border-radius: 20px;
+
+  padding: 5px 9px;
+
+  color: #277d53;
+  background: #eaf8f0;
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.status-action-error {
+  color: #b54848;
+
+  font-size: 9px;
+}
+
+.status-badge.completed,
+.status-badge.approved {
+  color: #277d53;
+
+  background: #eaf8f0;
+}
+
+.attention-content {
+  min-width: 0;
+
+  flex: 1;
+}

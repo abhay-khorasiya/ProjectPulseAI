@@ -1,0 +1,56 @@
+.summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+
+  margin-bottom: 10px;
+}
+
+.summary-header h2 {
+  margin-bottom: 0;
+}
+
+.report-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.report-button {
+  border: 1px solid #dddfe7;
+  border-radius: 7px;
+
+  padding: 8px 11px;
+
+  color: #566176;
+  background: white;
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.report-button:hover {
+  background: #f5f6f8;
+}
+
+.primary-report {
+  border-color: #d9d5ff;
+
+  color: #5f52cf;
+  background: #f3f1ff;
+}
+
+.primary-report:hover {
+  background: #ebe8ff;
+}
+
+@media (max-width: 700px) {
+  .summary-header {
+    flex-direction: column;
+  }
+
+  .report-actions {
+    width: 100%;
+  }
+}
